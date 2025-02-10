@@ -33,6 +33,10 @@ public class Schedule extends BaseEntity {
         this.content = content;
     }
 
+    public Schedule(String title, User user) {
+        this.title = title;
+        this.user = user;
+    }
 //    public void setUser(User user) {
 //        this.user = user;
 }
