@@ -19,7 +19,6 @@ public class ScheduleService {
 
     @Transactional
     public ScheduleResponseDto save(ScheduleSaveRequestDto dto) {
-
         Schedule schedule = new Schedule(dto.getUsername(),dto.getTitle(),dto.getContent());
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(
@@ -32,7 +31,6 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findAll() {
         List<Schedule> schedules = scheduleRepository.findAll();
-
         List<ScheduleResponseDto> dtos = new ArrayList<>();
         for (Schedule schedule : schedules) {
             dtos.add(new ScheduleResponseDto(
