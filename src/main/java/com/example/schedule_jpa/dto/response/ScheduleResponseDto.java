@@ -10,4 +10,10 @@ public class ScheduleResponseDto {
     private final String title;
     private final String content;
 
+    public ScheduleResponseDto(Long id, String username, String title, String content) {
+        this.id = id;
+        this.username = username;
+        this.title = title;
+        this.content = content;
+    }
 }
