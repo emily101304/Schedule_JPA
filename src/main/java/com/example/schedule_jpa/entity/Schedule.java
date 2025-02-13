@@ -19,7 +19,7 @@ public class Schedule extends BaseEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Schedule(String username, String title, String content) {
@@ -33,10 +33,10 @@ public class Schedule extends BaseEntity {
         this.content = content;
     }
 
-    public Schedule(String title, User user) {
+    public Schedule(String username, String title, String content, User user) {
+        this.username = username;
         this.title = title;
+        this.content = content;
         this.user = user;
     }
-//    public void setUser(User user) {
-//        this.user = user;
 }

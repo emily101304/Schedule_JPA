@@ -3,7 +3,9 @@ package com.example.schedule_jpa.service;
 import com.example.schedule_jpa.dto.request.ScheduleSaveRequestDto;
 import com.example.schedule_jpa.dto.response.ScheduleResponseDto;
 import com.example.schedule_jpa.entity.Schedule;
+import com.example.schedule_jpa.entity.User;
 import com.example.schedule_jpa.repository.ScheduleRepository;
+import com.example.schedule_jpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +18,21 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public ScheduleResponseDto save(ScheduleSaveRequestDto dto) {
-        Schedule schedule = new Schedule(dto.getUsername(),dto.getTitle(),dto.getContent());
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(
+                () -> new IllegalArgumentException("해당 id로 존재하는 유저가 없습니다!")
+        );
+        Schedule schedule = new Schedule(dto.getUsername(),dto.getTitle(),dto.getContent(),user);
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(
                 savedSchedule.getId(),
                 savedSchedule.getUsername(),
                 savedSchedule.getTitle(),
-                savedSchedule.getContent());
+                savedSchedule.getContent(),
+                savedSchedule.getUser().getId());
     }
 
     @Transactional(readOnly = true)
@@ -37,7 +44,8 @@ public class ScheduleService {
                     schedule.getId(),
                     schedule.getUsername(),
                     schedule.getTitle(),
-                    schedule.getContent()));
+                    schedule.getContent(),
+                    schedule.getUser().getId()));
         }
         return dtos;
     }
@@ -51,7 +59,8 @@ public class ScheduleService {
                 schedule.getId(),
                 schedule.getUsername(),
                 schedule.getTitle(),
-                schedule.getContent());
+                schedule.getContent(),
+                schedule.getUser().getId());
     }
 
     @Transactional
@@ -64,7 +73,8 @@ public class ScheduleService {
                 schedule.getId(),
                 schedule.getUsername(),
                 schedule.getTitle(),
-                schedule.getContent()
+                schedule.getContent(),
+                schedule.getUser().getId()
         );
     }
 

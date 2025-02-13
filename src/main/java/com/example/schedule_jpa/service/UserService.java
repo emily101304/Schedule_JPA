@@ -1,12 +1,15 @@
 package com.example.schedule_jpa.service;
 
 import com.example.schedule_jpa.dto.request.CreateUserRequestDto;
+import com.example.schedule_jpa.dto.request.LoginRequestDto;
+import com.example.schedule_jpa.dto.response.LoginResponseDto;
 import com.example.schedule_jpa.dto.response.UserResponseDto;
 import com.example.schedule_jpa.entity.User;
 import com.example.schedule_jpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,4 +61,12 @@ public class UserService {
         }
         userRepository.deleteById(userId);
     }
+
+//    @Transactional
+//    public LoginResponseDto login(LoginRequestDto dto) {
+//
+//    }
+
+//    public LoginResponseDto login(String email, String password) {
+//    }
 }
